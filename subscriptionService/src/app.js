@@ -5,7 +5,14 @@ const express = require(
 const cors = require(
   "cors"
 );
+const planRoutes = require(
+  "./routes/planRoutes"
+);
 
+app.use(
+  "/api/plans",
+  planRoutes
+);
 const app = express();
 
 app.use(cors());
