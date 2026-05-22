@@ -1,6 +1,6 @@
 const stripe = require("../services/stripeService");
 
-const {Subscription,} = require("../models");
+const {Subscription,} = require("../../models");
 
 // ======================================
 // GET USER INVOICES

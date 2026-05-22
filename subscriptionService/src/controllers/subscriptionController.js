@@ -1,5 +1,5 @@
 const stripe = require("../services/stripeService");
-const {Plan} = require("../../models");
+const {Plan, Subscription} = require("../../models");
 
 
 // ======================================
