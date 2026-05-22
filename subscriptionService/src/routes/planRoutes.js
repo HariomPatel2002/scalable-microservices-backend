@@ -1,23 +1,9 @@
-const express = require(
-  "express"
-);
+const express = require("express");
+const router = express.Router();
 
-const router =
-  express.Router();
+const planController = require("../controllers/planController");
 
-const planController =
-  require(
-    "../controllers/planController"
-  );
-
-router.post(
-  "/",
-  planController.createPlan
-);
-
-router.get(
-  "/",
-  planController.getPlans
-);
+router.post("/",planController.createPlan);
+router.get("/", planController.getPlans);
 
 module.exports = router;
