@@ -1,0 +1,22 @@
+{
+  "development": {
+
+    "username": "root",
+
+    "password": "Hariom@2002",
+
+    "database": "micro_dev",
+
+    "host": "127.0.0.1",
+
+    "dialect": "mysql",
+
+    "PORT": 3002,
+
+    "JWT_ACCESS_SECRET": "myAccessSecret123",
+
+    "STRIPE_SECRET_KEY": "your_stripe_secret",
+
+    "STRIPE_WEBHOOK_SECRET": "your_webhook_secret"
+  }
+}
