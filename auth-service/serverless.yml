@@ -1,0 +1,91 @@
+service: auth-service
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_USER: ${env:DB_USER}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_EXPIRES_IN: ${env:JWT_EXPIRES_IN}
+    JWT_REFRESH_SECRET: ${env:JWT_REFRESH_SECRET}
+    JWT_REFRESH_EXPIRES_IN: ${env:JWT_REFRESH_EXPIRES_IN}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+          Resource: arn:aws:logs:*:*:*
+
+functions:
+  # Express API Gateway handler for local development
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: "*"
+
+  # Individual Lambda function handlers for production
+  register:
+    handler: src/handlers/register.handler
+    events:
+      - http:
+          path: /api/users/register
+          method: post
+          cors: true
+
+  login:
+    handler: src/handlers/login.handler
+    events:
+      - http:
+          path: /api/users/login
+          method: post
+          cors: true
+
+  refreshToken:
+    handler: src/handlers/refreshToken.handler
+    events:
+      - http:
+          path: /api/users/refresh-token
+          method: post
+          cors: true
+
+  getUsers:
+    handler: src/handlers/getUsers.handler
+    events:
+      - http:
+          path: /api/users
+          method: get
+          cors: true
+
+  getUser:
+    handler: src/handlers/getUser.handler
+    events:
+      - http:
+          path: /api/users/{id}
+          method: get
+          cors: true
+
+  updateUser:
+    handler: src/handlers/updateUser.handler
+    events:
+      - http:
+          path: /api/users/{id}
+          method: put
+          cors: true
+
+  deleteUser:
+    handler: src/handlers/deleteUser.handler
+    events:
+      - http:
+          path: /api/users/{id}
+          method: delete
+          cors: true
+
+plugins:
+  - serverless-http
